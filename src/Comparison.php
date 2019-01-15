@@ -11,17 +11,26 @@ class Comparison
         // Создаем драйверы для сравнения
         /* @var \Driver\CompareDriver[] $drivers */
         $drivers = [
+            new  \Driver\StringEqualsDriver(),
             new  \Driver\MetaphoneDriver(),
             new  \Driver\TanimotoDriver(),
             new  \Driver\SimilarTextDriver(),
         ];
 
+        $result = [];
+
         // Сравниваем
         foreach ($drivers as $driver) {
-            foreach ($normalizedHaystack as $value) {
+            $driverName = preg_replace('/.+(\w+)$/iU', '$1', get_class($driver));
+            $result[$driverName] = [];
+
+            foreach ($normalizedHaystack as $key => $value) {
                 $percent = $driver->compare($normalizedNeedle, $value);
+                $result[$driverName][] = ['percent' => $percent, 'needle' => $needle, $haystack[$key]];
             }
         }
+
         // Отдаем результат
+        return $result;
     }
 }

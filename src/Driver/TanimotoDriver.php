@@ -9,16 +9,14 @@ class TanimotoDriver implements CompareDriver
         $firstCount  = mb_strlen($first);
         $secondCount = mb_strlen($second);
 
-        $intersection = [];
+        $intersectionCount = 0;
         for ($i = 0; $i < $firstCount; $i++) {
             $char = mb_substr($first, $i, 1);
 
             if (mb_strpos($second, $char) !== false) {
-                $intersection[$char] = $char;
+                $intersectionCount++;
             }
         }
-
-        $intersectionCount = count($intersection);
 
         $tanimoto = $intersectionCount / ($firstCount + $secondCount - $intersectionCount);
         $percent  = $tanimoto * 100;

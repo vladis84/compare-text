@@ -1,8 +1,10 @@
 <?php
 
-class NormalizeHelper
+namespace Filter;
+
+class SpaceFilter implements FilterInterface
 {
-    public static function normalize(string $text): string
+    public function filter(string $text): string
     {
         $text = trim($text);
 

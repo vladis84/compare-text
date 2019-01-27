@@ -2,8 +2,11 @@
 
 namespace Driver;
 
-class StringEqualsDriver implements CompareDriver
+class StringEqualsDriver implements CompareDriverInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function compare(string $first, string $second): float
     {
         $percent = 0;
@@ -13,5 +16,13 @@ class StringEqualsDriver implements CompareDriver
         }
 
         return $percent;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDriverName(): string
+    {
+        return 'string-equals';
     }
 }

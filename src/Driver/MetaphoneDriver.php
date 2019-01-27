@@ -2,8 +2,11 @@
 
 namespace Driver;
 
-class MetaphoneDriver implements CompareDriver
+class MetaphoneDriver implements CompareDriverInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function compare(string $first, string $second): float
     {
         $firstKey = metaphone($first);
@@ -17,5 +20,13 @@ class MetaphoneDriver implements CompareDriver
         similar_text($firstKey, $secondKey, $percent);
 
         return $percent;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDriverName(): string
+    {
+        return 'metaphone';
     }
 }

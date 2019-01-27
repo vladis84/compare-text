@@ -1,36 +1,66 @@
 <?php
 
+use Driver\CompareDriverInterface;
+use Filter\FilterInterface;
+
 class Comparison
 {
+    /**
+     * @var FilterInterface[]
+     */
+    private $filters = [];
+
+    /**
+     * @var CompareDriverInterface[]
+     */
+    private $drivers = [];
+
     public function compare(string $needle, array $haystack)
     {
-        // Нормализация строк
-        $normalizedNeedle   = NormalizeHelper::normalize($needle);
-        $normalizedHaystack = array_map('NormalizeHelper::normalize', $haystack);
-
-        // Создаем драйверы для сравнения
-        /* @var \Driver\CompareDriver[] $drivers */
-        $drivers = [
-            new  \Driver\StringEqualsDriver(),
-            new  \Driver\MetaphoneDriver(),
-            new  \Driver\TanimotoDriver(),
-            new  \Driver\SimilarTextDriver(),
-        ];
+        // Фильтрация строк
+        foreach ($this->filters as $filter) {
+            $normalizedNeedle   = $filter->filter($needle);
+            $normalizedHaystack = array_map([$filter, 'filter'], $haystack);
+        }
 
         $result = [];
 
         // Сравниваем
-        foreach ($drivers as $driver) {
-            $driverName = preg_replace('/.+(\w+)$/iU', '$1', get_class($driver));
+        foreach ($this->drivers as $driver) {
+            $driverName = $driver->getDriverName();
             $result[$driverName] = [];
 
             foreach ($normalizedHaystack as $key => $value) {
                 $percent = $driver->compare($normalizedNeedle, $value);
-                $result[$driverName][] = ['percent' => $percent, 'needle' => $needle, $haystack[$key]];
+                $result[$driverName][] = ['percent' => $percent, 'needle' => $needle, 'haystack' => $haystack[$key]];
             }
         }
 
         // Отдаем результат
         return $result;
+    }
+
+    /**
+     * @param FilterInterface $filter
+     *
+     * @return $this
+     */
+    public function addFilter(FilterInterface $filter)
+    {
+        $this->filters[] = $filter;
+
+        return $this;
+    }
+
+    /**
+     * @param CompareDriverInterface $driver
+     *
+     * @return $this
+     */
+    public function addDriver(CompareDriverInterface $driver)
+    {
+        $this->drivers[] = $driver;
+
+        return $this;
     }
 }

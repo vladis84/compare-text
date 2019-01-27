@@ -2,8 +2,11 @@
 
 namespace Driver;
 
-class TanimotoDriver implements CompareDriver
+class TanimotoDriver implements CompareDriverInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function compare(string $first, string $second): float
     {
         $firstCount  = mb_strlen($first);
@@ -22,5 +25,13 @@ class TanimotoDriver implements CompareDriver
         $percent  = $tanimoto * 100;
 
         return $percent;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDriverName(): string
+    {
+        return 'tanimoto';
     }
 }

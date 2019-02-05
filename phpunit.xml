@@ -4,11 +4,22 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.5/phpunit.xsd"
         backupGlobals="false"
-         colors="true"
-         bootstrap="vendor/autoload.php"
-         failOnRisky="true"
-         failOnWarning="true"
+        colors="true"
+        bootstrap="vendor/autoload.php"
+        failOnRisky="true"
+        failOnWarning="true"
 >
+    <groups>
+        <include>
+            <group>unit</group>
+            <group>integration</group>
+        </include>
+    </groups>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="main">
             <directory>tests</directory>

@@ -4,6 +4,9 @@ namespace Driver;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group unit
+ */
 class StringEqualsDriverTest extends TestCase
 {
     public function testCompareANSI()

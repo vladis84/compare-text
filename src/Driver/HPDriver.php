@@ -12,7 +12,6 @@ class HPDriver implements CompareDriverInterface
         $pairs1 = self::wordLetterPairs(mb_strtolower($first));
         $pairs2 = self::wordLetterPairs(mb_strtolower($second));
 
-
         $union = count($pairs1) + count($pairs2);
 
         $intersection = count(array_intersect($pairs1, $pairs2));
@@ -24,6 +23,7 @@ class HPDriver implements CompareDriverInterface
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     public function getDriverName(): string
     {
@@ -33,9 +33,10 @@ class HPDriver implements CompareDriverInterface
     /**
      *
      * @param string $str
+     *
      * @return mixed
      */
-    private static function wordLetterPairs (string $str)
+    private static function wordLetterPairs(string $str)
     {
         $allPairs = [];
 
@@ -44,11 +45,11 @@ class HPDriver implements CompareDriverInterface
         $words = explode(' ', $str);
 
         // For each word
-        for ($w = 0; $w < count($words); $w ++) {
+        for ($w = 0; $w < count($words); $w++) {
             // Find the pairs of characters
             $pairsInWord = self::letterPairs($words[$w]);
 
-            for ($p = 0; $p < count($pairsInWord); $p ++) {
+            for ($p = 0; $p < count($pairsInWord); $p++) {
                 $allPairs[$pairsInWord[$p]] = $pairsInWord[$p];
             }
         }
@@ -59,14 +60,15 @@ class HPDriver implements CompareDriverInterface
     /**
      *
      * @param string $str
+     *
      * @return array
      */
-    private static function letterPairs (string $str)
+    private static function letterPairs(string $str)
     {
         $numPairs = mb_strlen($str) - 1;
-        $pairs = [];
+        $pairs    = [];
 
-        for ($i = 0; $i < $numPairs; $i ++) {
+        for ($i = 0; $i < $numPairs; $i++) {
             $pairs[$i] = mb_substr($str, $i, 2);
         }
 

@@ -4,6 +4,9 @@ namespace Driver;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group unit
+ */
 class SimilarTextDriverTest extends TestCase
 {
     public function testCompareANSI()

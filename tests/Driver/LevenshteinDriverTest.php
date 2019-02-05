@@ -7,23 +7,23 @@ use PHPUnit\Framework\TestCase;
 /**
  * @group unit
  */
-class MetaphoneDriverTest extends TestCase
+class LevenshteinDriverTest extends TestCase
 {
     public function testCompareUTF8()
     {
-        $driver = new MetaphoneDriver();
+        $driver = new LevenshteinDriver();
 
         $actual = $driver->compare('привет', 'привет');
 
-        $this->assertEquals(0, $actual);
+        $this->assertEquals(100, $actual);
     }
 
     public function testCompareANSI()
     {
-        $driver = new MetaphoneDriver();
+        $driver = new LevenshteinDriver();
 
         $actual = $driver->compare('hello', 'hel');
 
-        $this->assertEquals(100, $actual);
+        $this->assertEquals(60, $actual);
     }
 }

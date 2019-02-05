@@ -9,7 +9,7 @@ class MetaphoneDriver implements CompareDriverInterface
      */
     public function compare(string $first, string $second): float
     {
-        $firstKey = metaphone($first);
+        $firstKey  = metaphone($first);
         $secondKey = metaphone($first);
 
         $percent = 0;
@@ -24,6 +24,7 @@ class MetaphoneDriver implements CompareDriverInterface
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     public function getDriverName(): string
     {

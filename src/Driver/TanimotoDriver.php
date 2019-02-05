@@ -29,6 +29,7 @@ class TanimotoDriver implements CompareDriverInterface
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getDriverName(): string
     {

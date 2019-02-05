@@ -3,6 +3,9 @@
 use Driver\TanimotoDriver;
 use Filter\SpaceFilter;
 
+/**
+ * @group unit
+ */
 class ComparisonTest extends \PHPUnit\Framework\TestCase
 {
     public function testCompare()

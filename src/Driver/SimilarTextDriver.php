@@ -17,6 +17,7 @@ class SimilarTextDriver implements CompareDriverInterface
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     public function getDriverName(): string
     {

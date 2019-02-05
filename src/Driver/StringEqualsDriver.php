@@ -20,6 +20,7 @@ class StringEqualsDriver implements CompareDriverInterface
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     public function getDriverName(): string
     {
